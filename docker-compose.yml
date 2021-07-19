@@ -9,4 +9,16 @@ services:
     volumes:
       - .:/app
       - /app/node_modules
-    command: "ng serve --host=0.0.0.0"
+    command: >
+      bash -c "cp -rfu /cache/node_modules/. /app/node_modules/
+      && ng serve --host=0.0.0.0"
+  test:
+    build:
+      context: .
+      dockerfile: ./.docker/dev/Dockerfile
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - 9876:9876
+    command: "ng test"
