@@ -10,3 +10,14 @@ services:
       - .:/app
       - /app/node_modules
     command: "ng serve --host=0.0.0.0"
+
+  test:
+    build:
+      context: .
+      dockerfile: ./.docker/dev/Dockerfile
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - 9876:9876
+    command: "ng test"
